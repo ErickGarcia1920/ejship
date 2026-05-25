@@ -37,4 +37,11 @@ export default function Login() {
         onChange={e => setPassword(e.target.value)}
         style={{ display: 'block', width: '100%', marginBottom: 10, padding: 8 }}
       />
-      <button onClick={handleLogin} style={{ width: '100%', padding: 10, background: '#007bff', color: 'white', border: 'none
+      <button onClick={handleLogin} style={{ width: '100%', padding: 10, background: '#007bff', color: 'white', border: 'none', cursor: 'pointer' }}>
+        Entrar
+      </button>
+      <p>¿No tienes cuenta? <a href="/register">Regístrate</a></p>
+      <p>Consultar tracking: <a href="/tracking">aquí</a></p>
+    </div>
+  )
+}
