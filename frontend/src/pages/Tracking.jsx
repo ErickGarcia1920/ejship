@@ -10,7 +10,7 @@ export default function Tracking() {
     try {
       setError('')
       setEnvio(null)
-      const res = await axios.get(`http://localhost:3000/api/envios/tracking/${codigo}`)
+      const res = await axios.get(`https://ejship-backend.onrender.com/api/envios/tracking/${codigo}`)
       setEnvio(res.data)
     } catch {
       setError('Envío no encontrado')
@@ -41,10 +41,10 @@ export default function Tracking() {
           <p><strong>Descripción:</strong> {envio.descripcion}</p>
           <p><strong>Estado actual:</strong> {envio.estado}</p>
           <h4>Historial de estados</h4>
-          {envio.estados.map((e, i) => (
+          {envio.estados.map((est, i) => (
             <div key={i} style={{ background: '#f8f9fa', padding: 10, marginBottom: 8, borderRadius: 4 }}>
-              <p><strong>{e.estado}</strong> - {new Date(e.createdAt).toLocaleString()}</p>
-              {e.nota && <p>{e.nota}</p>}
+              <p><strong>{est.estado}</strong> - {new Date(est.createdAt).toLocaleString()}</p>
+              {est.nota && <p>{est.nota}</p>}
             </div>
           ))}
         </div>

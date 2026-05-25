@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   const cargarEnvios = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/envios/mis-envios', {
+      const res = await axios.get('https://ejship-backend.onrender.com/api/envios/mis-envios', {
         headers: { Authorization: `Bearer ${token}` }
       })
       setEnvios(res.data)
@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   const crearEnvio = async () => {
     try {
-      await axios.post('http://localhost:3000/api/envios', { descripcion }, {
+      await axios.post('https://ejship-backend.onrender.com/api/envios', { descripcion }, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setDescripcion('')

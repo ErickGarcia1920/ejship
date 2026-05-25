@@ -12,7 +12,7 @@ export default function Register() {
 
   const handleRegister = async () => {
     try {
-      await axios.post('http://localhost:3000/api/auth/register', form)
+      await axios.post('https://ejship-backend.onrender.com/api/auth/register', form)
       setExito('Usuario creado exitosamente')
       setTimeout(() => navigate('/'), 2000)
     } catch {
