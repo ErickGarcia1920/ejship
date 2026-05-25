@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  correo    String   @unique
+  password  String
+  rol       String
+  createdAt DateTime @default(now())
+  envios    Envio[]  @relation("ClienteEnvios")
+  repartos  Envio[]  @relation("RepartidorEnvios")
+}
+
+model Envio {
+  id           Int           @id @default(autoincrement())
+  tracking     String        @unique
+  descripcion  String
+  estado       String        @default("REGISTRADO")
+  clienteId    Int
+  repartidorId Int?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  cliente      Usuario       @relation("ClienteEnvios", fields: [clienteId], references: [id])
+  repartidor   Usuario?      @relation("RepartidorEnvios", fields: [repartidorId], references: [id])
+  estados      EstadoEnvio[]
+  notificaciones Notificacion[]
+}
+
+model EstadoEnvio {
+  id        Int      @id @default(autoincrement())
+  envioId   Int
+  estado    String
+  nota      String?
+  createdAt DateTime @default(now())
+  envio     Envio    @relation(fields: [envioId], references: [id])
+}
+
+model Notificacion {
+  id        Int      @id @default(autoincrement())
+  envioId   Int
+  tipo      String
+  enviado   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  envio     Envio    @relation(fields: [envioId], references: [id])
+}
