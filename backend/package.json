@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest --coverage --forceExit"
+    "test": "jest --coverage --forceExit",
+    "build": "npx prisma generate"
   },
   "keywords": [],
   "author": "Erick Garcia",
