@@ -1,27 +1,58 @@
-const request = require('supertest')
-const app = require('../index')
+name: EJShip CI/CD Pipeline
 
-describe('Auth API', () => {
-  test('POST /api/auth/register - crear usuario', async () => {
-    const res = await request(app)
-      .post('/api/auth/register')
-      .send({
-        nombre: 'Test User',
-        correo: `test${Date.now()}@test.com`,
-        password: '123456',
-        rol: 'cliente'
-      })
-    expect(res.statusCode).toBe(200)
-    expect(res.body).toHaveProperty('id')
-  })
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-  test('POST /api/auth/login - login fallido', async () => {
-    const res = await request(app)
-      .post('/api/auth/login')
-      .send({
-        correo: 'noexiste@test.com',
-        password: 'wrongpass'
-      })
-    expect(res.statusCode).toBe(404)
-  })
-})
+jobs:
+  backend-ci:
+    name: Backend — Build, Lint y Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        working-directory: ./backend
+        run: npm install
+
+      - name: Lint del backend
+        working-directory: ./backend
+        run: npm run lint
+
+      - name: Ejecutar pruebas con cobertura
+        working-directory: ./backend
+        run: npm test
+
+  frontend-ci:
+    name: Frontend — Lint y Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Lint del frontend
+        working-directory: ./frontend
+        run: npm run lint
+
+      - name: Build del proyecto
+        working-directory: ./frontend
+        run: npm run build
