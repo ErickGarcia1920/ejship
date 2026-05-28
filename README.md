@@ -2,18 +2,18 @@
 
 Sistema web para gestión de envíos con tracking en tiempo real, desarrollado para el curso de Ingeniería de Software — Universidad Mariano Gálvez de Guatemala.
 
-## 🚀 Sistema en producción
+##  Sistema en producción
 
 - **Aplicación web:** https://ejship.vercel.app
 - **API Backend:** https://ejship-backend.onrender.com
 
-## 👥 Equipo
+##  Equipo
 
 - Erick Josué García Solares
 - Yessica Liseth García Almengor
 - Saúl Osberto Escobar Fuentes
 
-## 🛠️ Stack Tecnológico
+##  Stack Tecnológico
 
 | Capa | Tecnología |
 |------|-----------|
@@ -24,7 +24,7 @@ Sistema web para gestión de envíos con tracking en tiempo real, desarrollado p
 | Deploy Frontend | Vercel |
 | Deploy Backend | Render |
 
-## 📦 Instalación y ejecución local
+##  Instalación y ejecución local
 
 ### Backend
 ```bash
