@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,12 +10,7 @@ export default function Dashboard() {
   const token = localStorage.getItem('token')
   const usuario = JSON.parse(localStorage.getItem('usuario') || '{}')
 
-  useEffect(() => {
-    if (!token) { navigate('/'); return }
-    cargarEnvios()
-  }, [])
-
-  const cargarEnvios = async () => {
+  const cargarEnvios = useCallback(async () => {
     try {
       const res = await axios.get('https://ejship-backend.onrender.com/api/envios/mis-envios', {
         headers: { Authorization: `Bearer ${token}` }
@@ -24,7 +19,12 @@ export default function Dashboard() {
     } catch {
       setError('Error al cargar envíos')
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    if (!token) { navigate('/'); return }
+    cargarEnvios()
+  }, [token, navigate, cargarEnvios])
 
   const crearEnvio = async () => {
     try {
@@ -51,9 +51,7 @@ export default function Dashboard() {
           Cerrar sesión
         </button>
       </div>
-
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
       <div style={{ background: '#f8f9fa', padding: 20, marginBottom: 20, borderRadius: 8 }}>
         <h3>Crear nuevo envío</h3>
         <input
@@ -66,7 +64,6 @@ export default function Dashboard() {
           Crear Envío
         </button>
       </div>
-
       <h3>Mis envíos</h3>
       {envios.length === 0 && <p>No tienes envíos aún.</p>}
       {envios.map(envio => (
@@ -77,7 +74,6 @@ export default function Dashboard() {
           <p><strong>Fecha:</strong> {new Date(envio.createdAt).toLocaleDateString()}</p>
         </div>
       ))}
-
       <p style={{ marginTop: 20 }}>
         Consultar tracking público: <a href="/tracking">aquí</a>
       </p>
