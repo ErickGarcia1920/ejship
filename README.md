@@ -41,6 +41,6 @@ npm install
 npm run dev
 ```
 
-## ⚙️ Variables de entorno
+##  Variables de entorno
 
 Crear archivo `.env` en `/backend`:
